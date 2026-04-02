@@ -28,7 +28,7 @@ in
   boot.initrd.kernelModules = [
     "ocp8178_bl" # Backlight controller
     "panel_cwu50" # Display panel driver
-    "vc4" # VideoCore 4 GPU driver
+    "v3d" # VideoCore 5 GPU driver
   ];
 
   # Apply the uConsole patches to the kernel

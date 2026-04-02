@@ -2,12 +2,11 @@
   description = "NixOS for ClockworkPi uConsole";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.follows = "nixos-raspberrypi/nixpkgs";
 
     # nvmd's nixos-raspberrypi provides Raspberry Pi support for NixOS
     # Handles bootloader, kernel, device trees, etc.
-    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi";
-    nixos-raspberrypi.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/v1.20260317.0";
   };
 
   outputs =
@@ -110,7 +109,7 @@
                 nixpkgs.hostPlatform = "aarch64-linux";
 
                 # Use the "kernel" bootloader (direct kernel boot, not u-boot)
-                boot.loader.raspberryPi.bootloader = "kernel";
+                boot.loader.raspberry-pi.bootloader = "kernel";
 
                 #
                 # === Filesystem Configuration ===
@@ -157,7 +156,7 @@
                   # Populate the boot/firmware partition with kernel, device trees, config.txt
                   # The firmwarePopulateCmd comes from nixos-raspberrypi's bootloader module
                   populateFirmwareCommands = ''
-                    ${config.boot.loader.raspberryPi.firmwarePopulateCmd} \
+                    ${config.boot.loader.raspberry-pi.firmwarePopulateCmd} \
                       -c ${config.system.build.toplevel} \
                       -f ./firmware
                   '';
@@ -166,7 +165,7 @@
                   # Creates /boot/firmware mount point and installs boot files
                   populateRootCommands = ''
                     mkdir -p ./files/boot/firmware
-                    ${config.boot.loader.raspberryPi.bootPopulateCmd} \
+                    ${config.boot.loader.raspberry-pi.bootPopulateCmd} \
                       -c ${config.system.build.toplevel} \
                       -b ./files/boot
                   '';
@@ -215,7 +214,7 @@
                     (lib.mkAliasOptionModule [ "environment" "checkConfigurationOptions" ] [ "_module" "check" ])
                   ];
                   nixpkgs.hostPlatform = "aarch64-linux";
-                  boot.loader.raspberryPi.bootloader = "kernel";
+                  boot.loader.raspberry-pi.bootloader = "kernel";
 
                   # Filesystem configuration for SD card
                   fileSystems."/" = lib.mkDefault {

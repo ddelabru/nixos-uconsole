@@ -79,8 +79,8 @@ in
         vc4-kms-v3d-pi4 = {
           enable = lib.mkDefault true;
           params = {
-            cma-384 = opt true "on"; # 384MB contiguous memory for GPU
-            nohdmi1 = opt true "off"; # Keep HDMI1 enabled (external display)
+            cma-384 = opt true null; # 384MB contiguous memory for GPU
+            nohdmi1 = opt false null; # Keep HDMI1 enabled (external display)
           };
         };
       };
@@ -109,8 +109,8 @@ in
         vc4-kms-v3d-pi5 = {
           enable = lib.mkDefault true;
           params = {
-            cma-384 = opt true "on"; # 384MB contiguous memory for GPU
-            nohdmi1 = opt true "off"; # Keep HDMI1 enabled (external display)
+            cma-384 = opt true null; # 384MB contiguous memory for GPU
+            nohdmi1 = opt false null; # Keep HDMI1 enabled (external display)
           };
         };
       };
@@ -130,7 +130,7 @@ in
       };
 
       base-dt-params = {
-        ant2 = opt true "on"; # Use antenna 2 for WiFi (external)
+        ant2 = opt true null; # Use antenna 2 for WiFi (external)
         audio = opt true "on"; # Enable audio
       };
 
@@ -144,7 +144,7 @@ in
         audremap = {
           enable = lib.mkDefault true;
           params = {
-            pin_12_13 = opt true "on";
+            pins_12_13 = opt true null;
           };
         };
       };

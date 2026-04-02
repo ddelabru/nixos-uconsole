@@ -74,15 +74,6 @@ in
             dr_mode = opt true "host"; # USB host mode (not gadget/OTG)
           };
         };
-
-        # VideoCore KMS driver for Pi 4
-        vc4-kms-v3d-pi4 = {
-          enable = lib.mkDefault true;
-          params = {
-            cma-384 = opt true null; # 384MB contiguous memory for GPU
-            nohdmi1 = opt false null; # Keep HDMI1 enabled (external display)
-          };
-        };
       };
     };
 
@@ -103,14 +94,6 @@ in
             no_sound_switch = opt false true; # option to disable sound routing
             energy_full_design_uwh = opt false "24790000"; # battery capacity in uWh
             charge_full_design_uah = opt false "6700000"; # battery capacity in uAh
-          };
-        };
-        # VideoCore KMS driver for Pi 5
-        vc4-kms-v3d-pi5 = {
-          enable = lib.mkDefault true;
-          params = {
-            cma-384 = opt true null; # 384MB contiguous memory for GPU
-            nohdmi1 = opt false null; # Keep HDMI1 enabled (external display)
           };
         };
       };
@@ -135,11 +118,6 @@ in
       };
 
       dt-overlays = {
-        # Disable the generic KMS driver (we use module-specific one)
-        vc4-kms-v3d = {
-          enable = false;
-        };
-
         # Audio remap: route audio to GPIO 12/13 (headphone jack)
         audremap = {
           enable = lib.mkDefault true;
